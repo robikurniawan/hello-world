@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.PUSH_TOKEN }}
     - name: Set up Node
       uses: actions/setup-node@v1
       with:
@@ -26,8 +28,7 @@ jobs:
     - name: Deploy to production
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        port: ${{ secrets.PORT }}
-        key: ${{ secrets.SSHKEY }}
-        script: 'cd /var/www/html/cdeployment && ./deploy.sh'
+        host: ${{ secrets.HOST }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: 'cd /var/www/html/cdeployment && ./server_deploy.sh'
