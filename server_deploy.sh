@@ -10,8 +10,9 @@ echo "Deploying application ..."
     git reset --hard origin/production
 
     # Install dependencies based on lock file
-    composer install --no-interaction --prefer-dist --optimize-autoloader
+    composer install --ignore-platform-reqs --no-interaction --prefer-dist --optimize-autoloader
 
+    composer update
     # Migrate database
     php artisan migrate --force
 
